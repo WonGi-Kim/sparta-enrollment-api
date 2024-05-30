@@ -1,9 +1,7 @@
 package kr.sparta.enrollment.domain.student;
 
 import kr.sparta.enrollment.domain.student.exception.NotFoundException;
-import kr.sparta.enrollment.domain.student.model.SimpleStudentDto;
-import kr.sparta.enrollment.domain.student.model.Student;
-import kr.sparta.enrollment.domain.student.model.StudentAddRequest;
+import kr.sparta.enrollment.domain.student.model.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -44,5 +42,16 @@ public class StudentService {
         );
 
         return dto;
+    }
+
+    public void studentStatus(long studentNo, SimpleStudentStatusDto status) {
+        Student student = getStudent(studentNo);
+        student = Student.builder()
+                .id(student.getId())
+                .name(student.getName())
+                .status(status.getStatus())
+                .courseList(student.getCourseList())
+                .build();
+        studentRepository.save(student);
     }
 }
