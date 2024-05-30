@@ -38,6 +38,12 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/v1/students/{studentNo}")
+    public ResponseEntity<?> updateStudentInfo(@PathVariable long studentNo, @RequestBody StudentAddRequest studentDto) {
+        studentService.updateStudentInfo(studentNo, studentDto);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/students")
     public List<SimpleStudentDto> getStudents() {
         return studentService.getStudents();

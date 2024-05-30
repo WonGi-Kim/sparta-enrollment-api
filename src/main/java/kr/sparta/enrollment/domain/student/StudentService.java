@@ -54,4 +54,16 @@ public class StudentService {
                 .build();
         studentRepository.save(student);
     }
+
+    public void updateStudentInfo(long studentNo, StudentAddRequest studentDto) {
+        Student student = getStudent(studentNo);
+        student = Student.builder()
+                .id(student.getId())
+                .name(studentDto.getName())
+                .status(studentDto.getStatus())
+                .courseList(student.getCourseList())
+                .build();
+
+        studentRepository.save(student);
+    }
 }
