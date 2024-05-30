@@ -44,6 +44,12 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/v1/status/{status}/students")
+    public ResponseEntity<?> listStudentStatus(@PathVariable String status) {
+
+        return ResponseEntity.ok().body(studentService.getStudentsOnStatus(status));
+    }
+
     @GetMapping("/students")
     public List<SimpleStudentDto> getStudents() {
         return studentService.getStudents();

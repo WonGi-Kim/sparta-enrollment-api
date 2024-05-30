@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -66,4 +67,21 @@ public class StudentService {
 
         studentRepository.save(student);
     }
+
+    public List<StudentByStatusDto> getStudentsOnStatus(String status) {
+        final List<Student> students = studentRepository.findAll();
+        List<StudentByStatusDto> responseDtos = new ArrayList<>();
+
+        for (Student student : students) {
+            if (student.getStatus().equals(status)) {
+                responseDtos.add(StudentByStatusDto.builder()
+                        .id(student.getId())
+                        .name(student.getName())
+                        .build());
+            }
+        }
+
+        return responseDtos;
+    }
+
 }
